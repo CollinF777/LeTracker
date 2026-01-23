@@ -13,7 +13,6 @@ cam = cv2.VideoCapture(0)
 
 # Threshold values for expression detection
 eye_opening_thresh = 0.036
-mouth_open_thresh = 0.05
 squinting_thresh = 0.02
 
 # LeBron scream if you love
@@ -22,10 +21,25 @@ def leSatan(face_lm_pt):
     top_lip = face_lm_pt.landmark[13]
     btm_lip = face_lm_pt.landmark[14]
 
-    mouth_open = abs(top_lip.y - btm_lip.y)
+    # Mouth corner landmarks
+    left_mouth = face_lm_pt.landmark[61]
+    right_mouth = face_lm_pt.landmark[291]
 
-    # Check for wide open mouth
-    return mouth_open > mouth_open_thresh
+    # Mouth height and width
+    mouth_height = abs(top_lip.y - btm_lip.y)
+    mouth_width = abs(left_mouth.x - right_mouth.x)
+
+    # Face width for relative scaling
+    left_cheek = face_lm_pt.landmark[234]
+    right_cheek = face_lm_pt.landmark[454]
+    face_width = abs(left_cheek.x - right_cheek.x)
+
+    # Moved threshold here as otherwise leSatan and leSunshine kept overtaking each other
+    mouth_open_thresh = 0.15 * face_width
+    smile_width_thresh = 0.5 * face_width
+
+    # Trigger only if mouth is open AND not smiling
+    return (mouth_height > mouth_open_thresh) and (mouth_width < smile_width_thresh)
 
 # LeBron big grin
 def leGrin(face_lm_pt):
