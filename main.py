@@ -12,7 +12,7 @@ face_mesh = mp.solutions.face_mesh.FaceMesh(
 cam = cv2.VideoCapture(0)
 
 # Threshold values for expression detection
-eye_opening_thresh = 0.03
+eye_opening_thresh = 0.036
 mouth_open_thresh = 0.05
 squinting_thresh = 0.02
 
@@ -54,6 +54,25 @@ def leLockedIn(face_lm_pt):
     # Check for squinting eyes
     return squint < squinting_thresh
 
+# Lebron smiling
+def leSunshine(face_lm_pt):
+    # Face width using landmarks on cheeks
+    left_cheek = face_lm_pt.landmark[234]
+    right_cheek = face_lm_pt.landmark[454]
+    face_width = abs(left_cheek.x - right_cheek.x)
+
+    # Getting threshold here because I was only getting this img otherwise
+    smile_thresh = 0.5 * face_width
+
+    # Mouth corner landmarks
+    left_mouth = face_lm_pt.landmark[61]
+    right_mouth = face_lm_pt.landmark[291]
+
+    # Calculate horizontal distance between mouth corners to get smile
+    smile_width = abs(left_mouth.x- right_mouth.x)
+
+    return smile_width > smile_thresh
+
 def main():
     while True:
         # Get frame from webcam
@@ -88,6 +107,8 @@ def main():
                 leBron = "LeImages/lebron_grin.jpg"
             elif leLockedIn(face_lm_pt):
                 leBron = "LeImages/lebron_locked_in.jpg"
+            elif leSunshine(face_lm_pt):
+                leBron = "LeImages/lebron_sunshine.jpg"
             else:
                 leBron = "LeImages/lebron_serious.jpg"
 
