@@ -81,4 +81,4 @@ Additional thresholds for mouth expressions are calculated dynamically based on 
 - **Camera not working**: Ensure your webcam is connected and not being used by another application
 - **Missing image errors**: Check that all images are in the `LeImages` folder with correct filenames
 - **Poor detection**: Ensure good lighting and face the camera directly
-- **Mediapipe errors**: Ensure you have the correct version installed, I was having this problem a lot and it turns out pycharm was installing the wrong version
+- **Mediapipe errors**: Ensure you have the correct version (0.10.9) installed, I was having this problem a lot and it turns out pycharm was installing the wrong version
