@@ -2,6 +2,9 @@
 
 A computer vision project that mirrors your facial expressions with matching LeBron reactions in real-time
 
+<img width="1532" height="973" alt="image" src="https://github.com/user-attachments/assets/e8f5aac8-a717-4159-a45e-fc4b4895db73" />
+
+
 ## What It Does
 
 This application uses your webcam to detect your facial expressions and displays corresponding LeBron images based on what you're doing:
