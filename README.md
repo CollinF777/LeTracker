@@ -1,4 +1,4 @@
-# LeBron Expression Tracker
+# LeTracker
 
 A computer vision project that mirrors your facial expressions with matching LeBron reactions in real-time
 
